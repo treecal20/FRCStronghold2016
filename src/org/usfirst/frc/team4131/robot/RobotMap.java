@@ -11,7 +11,7 @@ public class RobotMap {
 	/**
 	 * ID for USBCamera
 	 */
-	public static final String FRONT_CAMERA = "cam1", BACK_CAMERA = "cam2";
+
 
 	public static final int WIDTH = 640, HEIGHT = 480;
 
@@ -82,7 +82,7 @@ public class RobotMap {
 //		public static final double DRIVE_RATIO = ROBOT_TYPE == PRAC_BOT_NUM ? ((125D + 3D / 16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
 	public static final double DRIVE_RATIO = ((125D + 3D / 16D) / 1033D);
 
-	public static final int GYRO = 1;
+
 	//Direct wired
 	//	public static final int LIGHT = 9;
 

@@ -2,7 +2,6 @@
 package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.BlastForward;
-import org.usfirst.frc.team4131.robot.commands.CameraToggle;
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
 import org.usfirst.frc.team4131.robot.commands.EmergencyStop;
@@ -12,7 +11,6 @@ import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
 import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
-import org.usfirst.frc.team4131.robot.commands.VisionSeek;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -38,8 +36,6 @@ public class OI {
 	private Button inverseDrive;
 	private Button toggleLight;
 	private Button blastForward;
-	private Button cameraAssist;
-	private Button cameraToggle;
 	public POVTrigger POV;
 
 	public OI() {
@@ -52,8 +48,7 @@ public class OI {
 		blastForward = new JoystickButton(leftStick, RobotMap.BLAST_FORWARD);
 		blastForward.whenPressed(new BlastForward());
 
-		cameraToggle = new JoystickButton(rightStick, RobotMap.CAMERA_TOGGLE);
-		cameraToggle.whenPressed(new CameraToggle());
+		
 		
 		launchpad = new Joystick(RobotMap.LAUNCHPAD);
 		
@@ -92,9 +87,7 @@ public class OI {
 //		return cameraAssist.get();
 //	}
 	
-	public boolean getCameraToggle(){
-		return cameraToggle.get();
-	}
+
 	
 	public double getLeftSpeed() {
 		return Math.pow(leftStick.getRawAxis(1), 3) * (ToggleDirection.isForward() ? -1 : 1);

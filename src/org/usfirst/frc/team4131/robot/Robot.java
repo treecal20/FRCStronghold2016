@@ -5,13 +5,10 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.usfirst.frc.team4131.robot.autonomous.Autonomous;
-import org.usfirst.frc.team4131.robot.autonomous.Configuration;
-import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
-import org.usfirst.frc.team4131.robot.commands.VisionFire;
+
+
 import org.usfirst.frc.team4131.robot.subsystems.AimingFlashlight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
-import org.usfirst.frc.team4131.robot.subsystems.Cameras;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.Sensors;
@@ -36,7 +33,7 @@ public class Robot extends IterativeRobot {
 	public static double CURRENT_Y;
 	public static double CURRENT_ANGLE;
 
-	public static Cameras camera;
+
 	public static Sensors sensors;
 	public static TankDrive drive;
 	public static Handler handler;
@@ -46,9 +43,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static AimingFlashlight flashlight;
 
-	private Autonomous autonomous;
-	private Configuration<Boolean> version;
-	private Command autonomousCommand;
+
+
 
 	public Robot() {
 		super();
@@ -64,7 +60,7 @@ public class Robot extends IterativeRobot {
 			whoami = new String(buffer);
 			RobotMap.ROBOT_TYPE = RobotMap.robotType(whoami);
 		}
-		autonomous = new Autonomous();
+
 	}
 
 	/**
@@ -75,7 +71,7 @@ public class Robot extends IterativeRobot {
 		if (RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM) {
 			// electricalBot Code
 		} else {
-			camera = new Cameras();
+
 			sensors = new Sensors();
 			drive = new TankDrive();
 			handler = new Handler();
@@ -87,10 +83,7 @@ public class Robot extends IterativeRobot {
 			
 			oi = new OI();
 
-			version = new Configuration<Boolean>("AutonVersion").put("Low-bar", true).put("Procedural", false);
-			version.init();
-			autonomous = new Autonomous();
-			autonomous.init();
+
 			
 			SmartDashboard.putNumber("TARGET RPM", 4500);
 		}
@@ -107,37 +100,17 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		dashboard();
-		try{camera.execute();}catch(Exception e){}
+
 	}
 
-	public void autonomousInit() {
-		drive.resetEncoders();
-		CURRENT_ANGLE = sensors.getAngle();
-		CURRENT_X = 0;// TODO whatever our starting position is based on
-		CURRENT_Y = 0;// TODO whatever our starting position is based on
-		sensors.resetGyro();
-		if (version.value())
-			autonomousCommand = new AutonLowBarShoot();
-		else
-			autonomousCommand = autonomous.assembleCommand();//procedural selection
-		SmartDashboard.putString("-Autonomous Command", String.valueOf(autonomousCommand));
-		if (autonomousCommand != null)
-			autonomousCommand.start();
-	}
+	
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
-	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
-		CURRENT_ANGLE = sensors.getAngle();
-		dashboard();
-		camera.execute();
-	}
+	
 
 	public void teleopInit() {
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();// End autonomous when teleop starts
 	}
 
 	/**
@@ -146,7 +119,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		dashboard();
-		try{camera.execute();}catch(Exception e){}
+
 	}
 
 	public void testInit() {
@@ -159,7 +132,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		Scheduler.getInstance().run();
 		dashboard();
-		try{camera.execute();}catch(Exception e){}
+
 	}
 
 	public static double constrain(double value, double min, double max) {
